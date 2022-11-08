@@ -96,43 +96,43 @@ contract SupplyChain {
 
   // Define a modifier that checks if an item.state of a upc is Processed
   modifier processed(uint _upc) {
-
+    require(items[_upc].itemState == State.Processed, "state not valid, expected Processed");
     _;
   }
   
   // Define a modifier that checks if an item.state of a upc is Packed
   modifier packed(uint _upc) {
-
+    require(items[_upc].itemState == State.Packed, "state not valid, expected Packed");
     _;
   }
 
   // Define a modifier that checks if an item.state of a upc is ForSale
   modifier forSale(uint _upc) {
-
+    require(items[_upc].itemState == State.ForSale, "state not valid, expected ForSale");
     _;
   }
 
   // Define a modifier that checks if an item.state of a upc is Sold
   modifier sold(uint _upc) {
-
+    require(items[_upc].itemState == State.Sold, "state not valid, expected Sold");
     _;
   }
   
   // Define a modifier that checks if an item.state of a upc is Shipped
   modifier shipped(uint _upc) {
-
+    require(items[_upc].itemState == State.Shipped, "state not valid, expected Shipped");
     _;
   }
 
   // Define a modifier that checks if an item.state of a upc is Received
   modifier received(uint _upc) {
-
+    require(items[_upc].itemState == State.Received, "state not valid, expected Received");
     _;
   }
 
   // Define a modifier that checks if an item.state of a upc is Purchased
   modifier purchased(uint _upc) {
-    
+    require(items[_upc].itemState == State.Purchased, "state not valid, expected Purchased");
     _;
   }
 
@@ -153,9 +153,29 @@ contract SupplyChain {
   }
 
   // Define a function 'harvestItem' that allows a farmer to mark an item 'Harvested'
-  function harvestItem(uint _upc, address _originFarmerID, string _originFarmName, string _originFarmInformation, string  _originFarmLatitude, string  _originFarmLongitude, string  _productNotes) public 
+  function harvestItem(uint _upc, 
+      address _originFarmerID, 
+      string _originFarmName, 
+      string _originFarmInformation, 
+      string  _originFarmLatitude, 
+      string  _originFarmLongitude, 
+      string  _productNotes) 
+      public 
+      onlyFarmer
+      newitem(_upc)
   {
     // Add the new item as part of Harvest
+    items[_upc].upc = _upc;
+    items[_upc].sku = sku;
+    items[_upc].productID = sku + _upc;
+    items[_upc].originFarmerID = _originFarmerID;
+    items[_upc].ownerID = _originFarmerID;
+    items[_upc].originFarmName = _originFarmName;
+    items[_upc].originFarmInformation = _originFarmInformation;
+    items[_upc].originFarmLatitude = _originFarmLatitude;
+    items[_upc].originFarmLongitude = _originFarmLongitude;
+    items[_upc].productNotes = _productNotes;
+    items[_upc].itemState = _State.Harvested;
     
     // Increment sku
     sku = sku + 1;
