@@ -8,7 +8,7 @@ RUN npm uninstall -g truffle
 
 RUN npm install -g truffle@5.0.2
 
-RUN cd app
+#RUN cd app
 # install packages
 RUN npm install --save  openzeppelin-solidity@2.3
 RUN npm install --save  truffle-hdwallet-provider@1.0.17
@@ -19,7 +19,7 @@ RUN npm install web3
 
 # Remove the node_modules  
 # remove packages
-RUN cd app && rm -rf node_modules
+RUN rm -rf node_modules
 
 # clean cache
 #RUN npm cache clean
