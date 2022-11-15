@@ -146,3 +146,16 @@ Consider including 2 methods - upload() and read()
 
 
 
+
+docker build -t dapp-tracking-bc .
+docker run -p 9545:9545 dapp-tracking-bc
+docker run -t -d -p 9545:9545 -p 8080:8080 dapp-tracking-bc bash
+docker run -i -t -d -p 9545:9545 -p 8080:8080 dapp-tracking-bc bash
+docker run -i -t dapp-tracking-bc bash
+
+docker exec -it [container id] bash
+
+docker inspect [containername]
+
+
+
