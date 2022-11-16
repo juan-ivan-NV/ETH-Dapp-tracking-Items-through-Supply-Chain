@@ -211,9 +211,9 @@ contract('SupplyChain', function(accounts) {
         const resultBufferTwo = await supplyChain.fetchItemBufferTwo(upc);
 
         // Verify the result set
-        assert.equal(resultBufferOne[2], distributorID, 'Error: Invalid ownerID');
+        assert.equal(resultBufferOne[2], retailerID, 'Error: Invalid ownerID');
         assert.equal(resultBufferTwo[5], 6, 'Error: Invalid item state');
-        assert.equal(resultBufferTwo[6], distributorID, 'Error: Invalid retailer ID');
+        assert.equal(resultBufferTwo[6], retailerID, 'Error: Invalid retailer ID');
         assert.equal(eventEmitted, true, 'Error: Invalid event emitted');
     })    
 
@@ -222,18 +222,24 @@ contract('SupplyChain', function(accounts) {
         const supplyChain = await SupplyChain.deployed()
         
         // Declare and Initialize a variable for event
-        
+        let eventEmitted = false;
         
         // Watch the emitted event Purchased()
-        
+        let watchEvent = await supplyChain.Purchased(); 
+        eventEmitted = watchEvent.logs[0].event == 'Processed' ? true : false;
 
         // Mark an item as Sold by calling function purchaseItem()
-        
+        supplyChain.purchaseItem(upc, {form: consumerID});
 
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
-        
+        const resultBufferOne = await supplyChain.fetchItemBufferOne(upc);
+        const resultBufferTwo = await supplyChain.fetchItemBufferTwo(upc);
 
         // Verify the result set
+        assert.equal(resultBufferOne[2], consumerID, 'Error: Invalid ownerID');
+        assert.equal(resultBufferTwo[5], 6, 'Error: Invalid item state');
+        assert.equal(resultBufferTwo[6], consumerID, 'Error: Invalid consumer ID');
+        assert.equal(eventEmitted, true, 'Error: Invalid event emitted');
         
     })    
 
@@ -242,9 +248,17 @@ contract('SupplyChain', function(accounts) {
         const supplyChain = await SupplyChain.deployed()
 
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
-        
+        const resultBufferOne = await supplyChain.fetchItemBufferOne(upc);
         
         // Verify the result set:
+        assert.equal(resultBufferOne[0], sku, 'Error: Invalid item SKU')
+        assert.equal(resultBufferOne[1], upc, 'Error: Invalid item UPC')
+        assert.equal(resultBufferOne[2], originFarmerID, 'Error: Missing or Invalid ownerID')
+        assert.equal(resultBufferOne[3], originFarmerID, 'Error: Missing or Invalid originFarmerID')
+        assert.equal(resultBufferOne[4], originFarmName, 'Error: Missing or Invalid originFarmName')
+        assert.equal(resultBufferOne[5], originFarmInformation, 'Error: Missing or Invalid originFarmInformation')
+        assert.equal(resultBufferOne[6], originFarmLatitude, 'Error: Missing or Invalid originFarmLatitude')
+        assert.equal(resultBufferOne[7], originFarmLongitude, 'Error: Missing or Invalid originFarmLongitude')
         
     })
 
@@ -253,9 +267,17 @@ contract('SupplyChain', function(accounts) {
         const supplyChain = await SupplyChain.deployed()
 
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
-        
+        const resultBufferOne = await supplyChain.fetchItemBufferTwo(upc);
         
         // Verify the result set:
+        assert.equal(resultBufferTwo[0], sku, 'Error: Invalid item SKU')
+        assert.equal(resultBufferTwo[1], upc, 'Error: Invalid item UPC')
+        assert.equal(resultBufferTwo[2], originFarmerID, 'Error: Missing or Invalid ownerID')
+        assert.equal(resultBufferTwo[3], originFarmerID, 'Error: Missing or Invalid originFarmerID')
+        assert.equal(resultBufferTwo[4], originFarmName, 'Error: Missing or Invalid originFarmName')
+        assert.equal(resultBufferTwo[5], originFarmInformation, 'Error: Missing or Invalid originFarmInformation')
+        assert.equal(resultBufferTwo[6], originFarmLatitude, 'Error: Missing or Invalid originFarmLatitude')
+        assert.equal(resultBufferTwo[7], originFarmLongitude, 'Error: Missing or Invalid originFarmLongitude')
         
     })
 
