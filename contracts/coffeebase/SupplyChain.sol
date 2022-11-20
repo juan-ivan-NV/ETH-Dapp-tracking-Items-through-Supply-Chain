@@ -10,7 +10,7 @@ import "../coffeeaccesscontrol/ConsumerRole.sol";
 contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, ConsumerRole {
 
   // Define 'owner'
-  address owner;
+  // address owner;
 
   // Define a variable called 'upc' for Universal Product Code (UPC)
   uint  upc;
@@ -70,10 +70,10 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
   event Purchased(uint upc);
 
   // Define a modifer that checks to see if msg.sender == owner of the contract
-  modifier onlyOwner() {
-    require(msg.sender == owner);
-    _;
-  }
+  //modifier onlyOwner() {
+  //  require(msg.sender == owner);
+  //  _;
+  //}
 
   // Define a modifer that verifies the Caller
   modifier verifyCaller (address _address) {
@@ -92,7 +92,7 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
     _;
     uint _price = items[_upc].productPrice;
     uint amountToReturn = msg.value - _price;
-    items[_upc].consumerID.transfer(amountToReturn);
+    msg.sender.transfer(amountToReturn);
   }
 
   // Define a modifier that checks if an item.state of a upc is Harvested
@@ -147,48 +147,55 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
   // and set 'sku' to 1
   // and set 'upc' to 1
   constructor() public payable {
-    owner = msg.sender;
+    //owner = msg.sender;
     sku = 1;
     upc = 1;
   }
 
   // Define a function 'kill' if required
   function kill() public {
-    if (msg.sender == owner) {
-      selfdestruct(owner);
+    if (msg.sender == owner()) {
+      selfdestruct(makePayable(owner()));
     }
   }
 
   // Define a function 'harvestItem' that allows a farmer to mark an item 'Harvested'
-  function harvestItem(uint _upc, 
+  function harvestItem(
+      uint _upc, 
       address _originFarmerID, 
-      string _originFarmName, 
-      string _originFarmInformation, 
-      string  _originFarmLatitude, 
-      string  _originFarmLongitude, 
-      string  _productNotes) 
+      string memory _originFarmName, 
+      string memory _originFarmInformation, 
+      string memory _originFarmLatitude, 
+      string memory _originFarmLongitude, 
+      string memory _productNotes
+      ) 
       public 
       onlyFarmer
-      newitem(_upc)
   {
     // Add the new item as part of Harvest
-    items[_upc].upc = _upc;
-    items[_upc].sku = sku;
-    items[_upc].productID = sku + _upc;
-    items[_upc].originFarmerID = _originFarmerID;
-    items[_upc].ownerID = _originFarmerID;
-    items[_upc].originFarmName = _originFarmName;
-    items[_upc].originFarmInformation = _originFarmInformation;
-    items[_upc].originFarmLatitude = _originFarmLatitude;
-    items[_upc].originFarmLongitude = _originFarmLongitude;
-    items[_upc].productNotes = _productNotes;
-    items[_upc].itemState = _State.Harvested;
-    
+    Item memory item = Item({
+        upc: _upc,
+        sku: sku,
+        productID: sku + _upc,
+        originFarmerID: _originFarmerID,
+        ownerID: _originFarmerID,
+        originFarmName: _originFarmName,
+        originFarmInformation: _originFarmInformation,
+        originFarmLatitude: _originFarmLatitude,
+        originFarmLongitude: _originFarmLongitude,
+        productNotes: _productNotes,
+        itemState: defaultState
+        //productPrice: 0,
+        //distributorID: 0,
+        //retailerID: 0,
+        //consumerID: 0
+    });
+
+    items[_upc] = item;
     // Increment sku
     sku = sku + 1;
     // Emit the appropriate event
     emit Harvested(_upc);
-    
   }
 
   // Define a function 'processtItem' that allows a farmer to mark an item 'Processed'
@@ -305,20 +312,19 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
       items[_upc].consumerID = msg.sender;
       items[_upc].itemState = State.Purchased;
     // Emit the appropriate event
-      emit Purchased(_upc);
+      emit Purchased(_upc, msg.sender);
   }
 
   // Define a function 'fetchItemBufferOne' that fetches the data
-  function fetchItemBufferOne(uint _upc) public view returns 
-  (
+  function fetchItemBufferOne(uint _upc) public view returns (
   uint    itemSKU,
   uint    itemUPC,
   address ownerID,
   address originFarmerID,
-  string  originFarmName,
-  string  originFarmInformation,
-  string  originFarmLatitude,
-  string  originFarmLongitude
+  string  memory originFarmName,
+  string  memory originFarmInformation,
+  string  memory originFarmLatitude,
+  string  memory originFarmLongitude
   ) 
   {
   // Assign values to the 8 parameters
@@ -331,16 +337,15 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
   originFarmLatitude = items[_upc].originFarmLatitude;
   originFarmLongitude = items[_upc].originFarmLongitude;
     
-  return 
-  (
-  itemSKU,
-  itemUPC,
-  ownerID,
-  originFarmerID,
-  originFarmName,
-  originFarmInformation,
-  originFarmLatitude,
-  originFarmLongitude
+  return (
+    itemSKU,
+    itemUPC,
+    ownerID,
+    originFarmerID,
+    originFarmName,
+    originFarmInformation,
+    originFarmLatitude,
+    originFarmLongitude
   );
   }
 
@@ -350,7 +355,7 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
   uint    itemSKU,
   uint    itemUPC,
   uint    productID,
-  string  productNotes,
+  string  memory productNotes,
   uint    productPrice,
   uint    itemState,
   address distributorID,
@@ -371,15 +376,19 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
     
   return 
   (
-  itemSKU,
-  itemUPC,
-  productID,
-  productNotes,
-  productPrice,
-  itemState,
-  distributorID,
-  retailerID,
-  consumerID
+    itemSKU,
+    itemUPC,
+    productID,
+    productNotes,
+    productPrice,
+    itemState,
+    distributorID,
+    retailerID,
+    consumerID
   );
   }
+
+function makePayable(address _addr) private pure returns(address payable) { 
+        return address(uint160(_addr));
+}
 }
