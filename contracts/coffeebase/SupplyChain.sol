@@ -170,28 +170,26 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
       string memory _productNotes
       ) 
       public 
-      onlyFarmer
+      onlyFarmer()
   {
     // Add the new item as part of Harvest
-    Item memory item = Item({
-        upc: _upc,
-        sku: sku,
-        productID: sku + _upc,
-        originFarmerID: _originFarmerID,
-        ownerID: _originFarmerID,
-        originFarmName: _originFarmName,
-        originFarmInformation: _originFarmInformation,
-        originFarmLatitude: _originFarmLatitude,
-        originFarmLongitude: _originFarmLongitude,
-        productNotes: _productNotes,
-        itemState: defaultState
-        //productPrice: 0,
-        //distributorID: 0,
-        //retailerID: 0,
-        //consumerID: 0
-    });
-
-    items[_upc] = item;
+    items[_upc] = Item(
+      sku,
+      _upc,
+      _originFarmerID,
+      _originFarmerID,
+      _originFarmName,
+      _originFarmInformation,
+      _originFarmLatitude,
+      _originFarmLongitude,
+      sku + upc,
+      _productNotes,
+      0,
+      State.Harvested,
+      address(0),
+      address(0),
+      address(0)
+    );
     // Increment sku
     sku = sku + 1;
     // Emit the appropriate event
@@ -241,7 +239,7 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
       items[_upc].itemPrice = _price;
       items[_upc].itemState = State.ForSale;
     // Emit the appropriate event
-      emit ForSale(_upc, _price);
+      emit ForSale(_upc);
   }
 
   // Define a function 'buyItem' that allows the disributor to mark an item 'Sold'
@@ -261,9 +259,10 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
       items[_upc].distributorID = msg.sender;
       items[_upc].itemState = State.Sold;
     // Transfer money to farmer
-      items[_upc].originFarmerID.transfer(items[_upc].productPrice);
+      address payable farmer = makePayable(items[_upc].originFarmerID);
+      farmer.transfer(items[_upc].productPrice);
     // emit the appropriate event
-    emit Sold(_upc);
+    emit Sold(_upc,items[_upc].distributorID);
     
   }
 
@@ -312,7 +311,7 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
       items[_upc].consumerID = msg.sender;
       items[_upc].itemState = State.Purchased;
     // Emit the appropriate event
-      emit Purchased(_upc, msg.sender);
+      emit Purchased(_upc);
   }
 
   // Define a function 'fetchItemBufferOne' that fetches the data
