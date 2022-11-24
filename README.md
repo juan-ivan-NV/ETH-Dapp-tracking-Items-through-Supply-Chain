@@ -158,4 +158,8 @@ docker exec -it [container id] bash
 docker inspect [containername]
 
 
+nano node_modules/browser-sync/dist/default-config.js
 
+change the ports on the default-config.js
+in this case 8080 for BROWSER SYNC
+and 9545 for the app
