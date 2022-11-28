@@ -14,7 +14,7 @@ contract('SupplyChain', function(accounts) {
     const originFarmLongitude = "144.341490"
     var productID = sku + upc
     const productNotes = "Best beans for Espresso"
-    const productPrice = web3.utils.toWei(1, "ether")
+    const productPrice = web3.utils.toWei("1", "ether")
     var itemState = 0
     const distributorID = accounts[2]
     const retailerID = accounts[3]
@@ -49,8 +49,8 @@ contract('SupplyChain', function(accounts) {
         var eventEmitted = false
         
         // Watch the emitted event Harvested()
-        var event = supplyChain.Harvested()
-        await event.watch((err, res) => {
+        var FEvent = supplyChain.Harvested()
+        FEvent.on('data', (event) => {
             eventEmitted = true
         })
 
@@ -82,8 +82,10 @@ contract('SupplyChain', function(accounts) {
         let eventEmitted = false;
         
         // Watch the emitted event Processed()
-        let watchEvent = await supplyChain.Processed(); 
-        eventEmitted = watchEvent.logs[0].event == 'Processed' ? true : false;
+        let watchEvent = supplyChain.Processed(); 
+        watchEvent.on('data', (event) => {
+            eventEmitted = true;
+        });
 
         // Mark an item as Processed by calling function processtItem()
         await supplyChain.processItem(upc, {from: originFarmerID});
