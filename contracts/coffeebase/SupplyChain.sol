@@ -202,8 +202,8 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
   harvested(_upc)
   /// Call modifier to verify caller of this function
   verifyCaller(items[_upc].originFarmerID)
-  onlyFarmer
   
+  onlyFarmer
   {
     // Update the appropriate fields
     items[_upc].itemState = State.Processed;
