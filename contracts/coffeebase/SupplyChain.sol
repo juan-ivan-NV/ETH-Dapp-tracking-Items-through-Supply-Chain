@@ -5,12 +5,13 @@ import "../coffeeaccesscontrol/FarmerRole.sol";
 import "../coffeeaccesscontrol/DistributorRole.sol";
 import "../coffeeaccesscontrol/RetailerRole.sol";
 import "../coffeeaccesscontrol/ConsumerRole.sol";
+import "../coffeecore/Ownable.sol";
 
 // Define a contract 'Supplychain'
 contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, ConsumerRole {
 
   // Define 'owner'
-  // address owner;
+  //address owner;
 
   // Define a variable called 'upc' for Universal Product Code (UPC)
   uint  upc;
@@ -97,7 +98,7 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
 
   // Define a modifier that checks if an item.state of a upc is Harvested
   modifier harvested(uint _upc) {
-    require(items[_upc].itemState == State.Harvested);
+    require(items[_upc].itemState == State.Harvested, "Item not harvested");
     _;
   }
 
@@ -155,7 +156,7 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
   // Define a function 'kill' if required
   function kill() public {
     if (msg.sender == owner()) {
-      selfdestruct(makePayable(owner()));
+      selfdestruct(msg.sender);
     }
   }
 
@@ -182,7 +183,7 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
       _originFarmInformation,
       _originFarmLatitude,
       _originFarmLongitude,
-      sku + upc,
+      sku + _upc,
       _productNotes,
       0,
       State.Harvested,
@@ -259,10 +260,12 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
       items[_upc].distributorID = msg.sender;
       items[_upc].itemState = State.Sold;
     // Transfer money to farmer
+      //items[_upc].originFarmerID.transfer(items[_upc].productPrice);
       address payable farmer = makePayable(items[_upc].originFarmerID);
       farmer.transfer(items[_upc].productPrice);
     // emit the appropriate event
-    emit Sold(_upc,items[_upc].distributorID);
+    //emit Sold(_upc,items[_upc].distributorID);
+    emit Sold(_upc);
     
   }
 
