@@ -38,6 +38,7 @@ RUN npm install
 RUN npm install truffle-hdwallet-provider@web3-one
 RUN npm install any-promise --save-dev
 RUN npm install bindings
+RUN npm install --save-dev truffle-assertions
 
 # For truffle
 EXPOSE 9545
