@@ -97,7 +97,7 @@ contract('SupplyChain', function(accounts) {
 
         // Verify the result set
         assert.equal(resultBufferTwo[5], 2, 'Error: Invalid item State');
-        truffleAssert.eventEmitted(markItem, "Packed", "Event marked as invalid");
+        truffleAssert.eventEmitted(markItem, "Packed", null, "Event marked as invalid");
     })    
 
     // 4th Test
