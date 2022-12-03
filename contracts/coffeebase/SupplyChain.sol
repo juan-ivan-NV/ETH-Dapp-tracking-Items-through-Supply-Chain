@@ -183,7 +183,7 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
       _originFarmInformation,
       _originFarmLatitude,
       _originFarmLongitude,
-      sku + _upc,
+      sku + upc,
       _productNotes,
       0,
       State.Harvested,
@@ -202,9 +202,9 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
   /// Call modifier to check if upc has passed previous supply chain stage
   harvested(_upc)
   /// Call modifier to verify caller of this function
+  onlyFarmer()
   verifyCaller(items[_upc].originFarmerID)
-  
-  onlyFarmer
+
   {
     // Update the appropriate fields
     items[_upc].itemState = State.Processed;
@@ -247,13 +247,14 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
   // Use the above defined modifiers to check if the item is available for sale, if the buyer has paid enough, 
   // and any excess ether sent is refunded back to the buyer
   function buyItem(uint _upc) public payable 
+    onlyDistributor()
     /// Call modifier to check if upc has passed previous supply chain stage
       forSale(_upc)
     /// Call modifer to check if buyer has paid enough
       paidEnough(items[_upc].productPrice)
     /// Call modifer to send any excess ether back to buyer
       checkValue(_upc)
-      onlyDistributor
+      
     {
     // Update the appropriate fields - ownerID, distributorID, itemState
       items[_upc].ownerID = msg.sender;
