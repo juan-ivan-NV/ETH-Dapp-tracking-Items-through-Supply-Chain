@@ -65,7 +65,7 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
   event Processed(uint upc);
   event Packed(uint upc);
   event ForSale(uint upc);
-  event Sold(uint upc);
+  event Sold(uint upc, address distributorID);
   event Shipped(uint upc);
   event Received(uint upc);
   event Purchased(uint upc);
@@ -266,7 +266,7 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
       farmer.transfer(items[_upc].productPrice);
     // emit the appropriate event
     //emit Sold(_upc,items[_upc].distributorID);
-    emit Sold(_upc);
+    emit Sold(_upc,items[_upc].distributorID);
     
   }
 

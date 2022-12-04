@@ -202,16 +202,16 @@ contract('SupplyChain', function(accounts) {
     // 8th Test
     it("Testing smart contract function purchaseItem() that allows a consumer to purchase coffee", async() => {
         const supplyChain = await SupplyChain.deployed()
-        
+        await supplyChain.addConsumer(consumerID);
         // Declare and Initialize a variable for event
-        let eventEmitted = false;
+        //let eventEmitted = false;
         
         // Watch the emitted event Purchased()
-        let watchEvent = await supplyChain.Purchased(); 
-        eventEmitted = watchEvent.logs[0].event == 'Processed' ? true : false;
+        //let watchEvent = await supplyChain.Purchased(); 
+        //eventEmitted = watchEvent.logs[0].event == 'Processed' ? true : false;
 
         // Mark an item as Sold by calling function purchaseItem()
-        supplyChain.purchaseItem(upc, {form: consumerID});
+        const markitem = supplyChain.purchaseItem(upc, {form: consumerID});
 
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
         const resultBufferOne = await supplyChain.fetchItemBufferOne(upc);
@@ -221,9 +221,10 @@ contract('SupplyChain', function(accounts) {
         assert.equal(resultBufferOne[2], consumerID, 'Error: Invalid ownerID');
         assert.equal(resultBufferTwo[5], 6, 'Error: Invalid item state');
         assert.equal(resultBufferTwo[6], consumerID, 'Error: Invalid consumer ID');
-        assert.equal(eventEmitted, true, 'Error: Invalid event emitted');
+        //assert.equal(eventEmitted, true, 'Error: Invalid event emitted');
+        truffleAssert.eventEmitted(markitem, "Purchased", null, "Error: Invalid event emitted");
         
-    })    
+    }) 
 
     // 9th Test
     it("Testing smart contract function fetchItemBufferOne() that allows anyone to fetch item details from blockchain", async() => {
