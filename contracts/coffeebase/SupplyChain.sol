@@ -263,11 +263,8 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole 
       items[_upc].distributorID = msg.sender;
       items[_upc].itemState = State.Sold;
     // Transfer money to farmer
-      //address payable farmer = makePayable(items[_upc].originFarmerID);
-      //farmer.transfer(items[_upc].productPrice);
       items[_upc].originFarmerID.transfer(items[_upc].productPrice);    
 	// emit the appropriate event
-      //emit Sold(_upc, items[_upc].distributorID);
 	emit Sold(_upc);
     
   }
@@ -395,8 +392,4 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole 
   consumerID
   );
   }
-
-//function makePayable(address _addr) private pure returns(address payable) {
-//	return address(uint160(_addr));
-//}
 }
