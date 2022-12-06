@@ -10,7 +10,7 @@ module.exports = {
       network_id: "*" // Match any network id
     },
     goerli: {
-      provider: () => new HDWalletProvider(mnemonic, `https://goerli.infura.io/v3/${infuraKey}`),
+      provider: () => new HDWallet(mnemonic, `https://goerli.infura.io/v3/${infuraKey}`),
       network_id: "*",
       gas: 4500000,
       gasPrice: 10000000000

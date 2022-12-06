@@ -163,3 +163,7 @@ nano node_modules/browser-sync/dist/default-config.js
 change the ports on the default-config.js
 in this case 8080 for BROWSER SYNC
 and 9545 for the app
+
+
+truffle migrate --network goerli --reset 
+cost arround 0.12 ETH 
