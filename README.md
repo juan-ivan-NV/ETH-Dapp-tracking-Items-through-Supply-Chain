@@ -166,4 +166,5 @@ and 9545 for the app
 
 
 truffle migrate --network goerli --reset 
+truffle migrate --reset --network goerli
 cost arround 0.12 ETH 
