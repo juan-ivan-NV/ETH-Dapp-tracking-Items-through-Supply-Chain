@@ -168,3 +168,12 @@ and 9545 for the app
 truffle migrate --network goerli --reset 
 truffle migrate --reset --network goerli
 cost arround 0.12 ETH 
+
+defaults
+rs sync ui 3001
+app 3000
+
+docker run -t -d -p 9545:9545 -p 3001:3001  -p 3000:3000 dapp-tracking-bc
+
+
+
