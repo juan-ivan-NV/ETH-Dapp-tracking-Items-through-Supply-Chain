@@ -1,4 +1,4 @@
-pragma solidity >=0.4.24;
+pragma solidity ^0.4.24;
 
 // Import the library 'Roles'
 import "./Roles.sol";
@@ -17,7 +17,6 @@ contract ConsumerRole {
   // In the constructor make the address that deploys this contract the 1st consumer
   constructor() public {
     _addConsumer(msg.sender);
-
   }
 
   // Define a modifier that checks to see if msg.sender has the appropriate role

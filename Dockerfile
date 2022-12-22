@@ -31,8 +31,8 @@ RUN npm init -y
 RUN npm install
 
 # installing nano
-# RUN apt-get update
-# RUN apt-get install vim nano
+RUN apt-get -y update
+RUN apt-get -y install vim nano
 
 # To deploy via Infura you'll need a wallet provider (like truffle-hdwallet-provider)
 RUN npm install truffle-hdwallet-provider@web3-one
