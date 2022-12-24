@@ -1,16 +1,19 @@
-# ETH-Dapp-tracking-Items-through-Supply-Chain.
+# ETH Dapp Tracking Items Through Supply Chain.
 
-Supply chain Dapp with Ethereum platform as backend.
+Repository to deploy an ETH DAPP that shows the flow of a coffee business through the different roles, from a Farmer to a Consumer.
 
-Project Details
+-------------------------------------------------------------------------------
+
+Actions performed by role
 
 <table>
-<tr> <td>Part 1</td> <td>Plan the project with write-ups</td> </tr>
-<tr> <td>Part 2</td> <td>Write smart contracts</td> </tr>
-<tr> <td>Part 3</td> <td>Test smart contract code coverage</td> </tr>
-<tr> <td>Part 4</td> <td>Deploy smart contracts on a public test network (Rinkeby)</td> </tr>
-<tr> <td>Part 5</td> <td>Modify client code to interact with smart contracts</td> </tr>
-<tr> <td>Optional</td> <td>Implement Infura to store product image</td> </tr>
+<thead><tr> <th>Role</th> <th>Action</th> </tr> </thead>
+<tbody>
+<tr> <td>Farmer</td> <td>Harvest Item <br> Process Item <br> Pack Item <br> Set Item For Sale</td> </tr> 
+<tr> <td>Distributor</td> <td>Buy Item <br> Ship Item</td> </tr>
+<tr> <td>Retailer</td> <td>Receive Item</td> </tr>
+<tr> <td>Consumer</td> <td>Purchase Item</td> </tr>
+</tbody>
 </table>
 
 
