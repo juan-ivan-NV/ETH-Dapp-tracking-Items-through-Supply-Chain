@@ -17,18 +17,191 @@ Actions performed by role
 </table>
 
 
-## Part 1: Plan the project with write-ups.
+## Project write-up - UMLs
+
+### Activity Diagram
+
+<img src='UMLs/Activity_Diagram.png'/>
+
+### Sequence Diagram
+
+<img src='UMLs/Sequence_Diagram.png'/>
+
+### State Diagram
+
+<img src='UMLs/State_Diagram.png'/>
+
+### Class Diagram
+
+<img src='UMLs/Class_Diagram.png'/>
+
+
+## Project write-up - Libraries.
+
+All of the libraries for this Dapp are specified in the Dockerfile.
 
 <table>
-<tr> <td>Requirement 1</td> <td>Project write-up - UML</td> </tr>
-<tr> <td>Requirement 2</td> <td>Project write-up - Libraries</td> </tr>
-<tr> <td>Requirement 3</td> <td>Project write-up - IPFS</td> </tr>
+<tbody>
+<tr> <td>Node version</td> <td>v10.24.1</td> </tr> 
+<tr> <td>Truffle version</td> <td>v5.1.13</td> </tr>
+<tr> <td>Web3</td> <td>1.8.1</td> </tr>
+</tbody>
 </table>
 
 
-## Part 2: Write smart contracts.
 
-### Requirement 1: Define and implement required interfaces.
+
+# How to deploy this project using Docker?
+
+Installing...
+
+<code>docker build -t dapp-tracking-bc .</code>
+<code>docker run -t -d -p 9545:9545 -p 3001:3001 -p 3000:3000 dapp-tracking-bc</code>
+
+* Port 9595 is used for truffle.
+
+* Port 3001 is for browser-sync UI.
+
+* Port 3000 is for the dapp UI.
+
+once the container is running you can enter the container terminal and change data like the network mnemonic or any other change in the files.
+
+<code>docker ps</code>
+
+<code>docker exec -it [container id] bash</code>
+
+Once you get into the container terminal, you can follow next steps.
+
+## Running project locally.
+
+<blockquote>
+1.- Start truffle.
+</blockquote> <br />
+
+<code>Truffle develop</code>
+
+<img src='images/Truffle_Develop.png'/>
+
+
+<blockquote>
+2.- Compile contracts.
+</blockquote> <br />
+
+<code>compile</code>
+
+<img src='images/Compile.png'/><br />
+
+These contracts were already compiled so you may see another message like "Compiling ./contracts/..."
+
+
+<blockquote>
+3.- Migrate smart contracts to the locally running blockchain.
+</blockquote> <br />
+
+<code>migrate --reset</code>
+
+<img src='images/Migrate1.png'/><br />
+.<br />
+.<br />
+.<br />
+<img src='images/Migrate2.png'/><br />
+
+<blockquote>
+
+Deploying 'Migrations'
+   ----------------------
+   > block number:        8208015 <br />
+   > block timestamp:     1672120145 <br />
+   > account:             0xb9c1A59a493818B869e1e75f4F484349b313C212 <br />
+   > balance:             0.379944499236479893 <br />
+   > gas used:            157059 <br />
+   > gas price:           11 gwei <br />
+   > value sent:          0 ETH <br />
+   > total cost:          0.001727649 ETH <br />
+
+   -------------------------------------
+   > Total cost:         0.001727649 ETH
+
+</blockquote>
+
+<blockquote>
+
+2_deploy_contracts.js
+=====================
+
+   Deploying 'SupplyChain'
+   -----------------------
+   > block number:        8208017 <br />
+   > block timestamp:     1672120160 <br />
+   > account:             0xb9c1A59a493818B869e1e75f4F484349b313C212 <br />
+   > balance:             0.348077070236479893 <br />
+   > gas used:            2869713 <br />
+   > gas price:           11 gwei <br />
+   > value sent:          0 ETH <br />
+   > total cost:          0.031566843 ETH <br />
+
+   -------------------------------------
+   > Total cost:         0.031566843 ETH
+
+</blockquote>
+
+<blockquote>
+
+Summary
+=======
+> Total deployments:   2<br />
+> Final cost:          0.033294492 ETH
+
+</blockquote>
+
+
+### Run the project on test network local
+
+
+
+<code>compile</code>
+
+<code>migrate --reset</code>
+
+<code>test</code>
+
+### Run the project on a test network like goerly
+
+truffle migrate --network goerli --reset 
+
+<code>truffle migrate --reset --network goerli</code>
+
+Warning to deploy on the test network the cost arround "0.12 ETH"
+
+### you can change the different port settings on browser-sync
+
+<code>nano node_modules/browser-sync/dist/default-config.js</code>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <a href = "https://github.com/udacity/nd1309-Project-6b-Example-Template">Starter code</a>
@@ -146,37 +319,6 @@ Frontend code can be downloaded and executed from a local environment.
 Using your previous coursework experience, modify your DApp to allow the initial producer in the supply chain to upload an image of the product along with the UPC hash and store this image using Infura.
 
 Consider including 2 methods - upload() and read()
-
-
-
-
-docker build -t dapp-tracking-bc .
-docker run -p 9545:9545 dapp-tracking-bc
-docker run -t -d -p 9545:9545 -p 8080:8080 dapp-tracking-bc bash
-docker run -i -t -d -p 9545:9545 -p 8080:8080 dapp-tracking-bc bash
-docker run -i -t dapp-tracking-bc bash
-
-docker exec -it [container id] bash
-
-docker inspect [containername]
-
-
-nano node_modules/browser-sync/dist/default-config.js
-
-change the ports on the default-config.js
-in this case 8080 for BROWSER SYNC
-and 9545 for the app
-
-
-truffle migrate --network goerli --reset 
-truffle migrate --reset --network goerli
-cost arround 0.12 ETH 
-
-defaults
-rs sync ui 3001
-app 3000
-
-docker run -t -d -p 9545:9545 -p 3001:3001  -p 3000:3000 dapp-tracking-bc
 
 
 
