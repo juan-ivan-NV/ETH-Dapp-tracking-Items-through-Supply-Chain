@@ -55,7 +55,7 @@ All of the libraries for this Dapp are specified in the Dockerfile.
 
 Installing...
 
-<code>docker build -t dapp-tracking-bc .</code>
+<code>docker build -t dapp-tracking-bc .</code><br />
 <code>docker run -t -d -p 9545:9545 -p 3001:3001 -p 3000:3000 dapp-tracking-bc</code>
 
 * Port 9595 is used for truffle.
@@ -64,13 +64,13 @@ Installing...
 
 * Port 3000 is for the dapp UI.
 
-once the container is running you can enter the container terminal and change data like the network mnemonic or any other change in the files.
+Once the container is running you can enter the container terminal and change data like the network mnemonic or any other change in the files.
 
 <code>docker ps</code>
 
 <code>docker exec -it [container id] bash</code>
 
-Once you get into the container terminal, you can follow next steps.
+After getting into the container terminal, you can follow next steps.
 
 ## Running project locally.
 
@@ -128,7 +128,7 @@ These contracts were already compiled so you may see another message like "Compi
 
 In this case we are using goerly.<br />
 
-First make sure you set the test network data ...
+First make sure you set the test network data in the config file ...
 
 <blockquote>
 truffle-config.js
@@ -144,11 +144,10 @@ const infuraKey = "test network infura key"; <br />
 const mnemonic = "metamask mnemonic";
 </blockquote> <br />
 
-truffle migrate --network goerli --reset 
 
 <code>truffle migrate --reset --network goerli</code><br />
 or <br />
-<code>truffle migrate --reset --network goerli</code>
+<code>truffle migrate --network goerli --reset </code>
 
 <img src='images/Goerly1.png'/><br />
 .<br />
