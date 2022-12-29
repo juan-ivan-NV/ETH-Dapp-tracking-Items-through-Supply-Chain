@@ -10,10 +10,8 @@ contract ConsumerRole {
   // Define 2 events, one for Adding, and other for Removing
   event ConsumerAdded(address indexed account);
   event ConsumerRemoved(address indexed account);
-
   // Define a struct 'consumers' by inheriting from 'Roles' library, struct Role
   Roles.Role private consumers;
-
   // In the constructor make the address that deploys this contract the 1st consumer
   constructor() public {
     _addConsumer(msg.sender);
@@ -21,7 +19,7 @@ contract ConsumerRole {
 
   // Define a modifier that checks to see if msg.sender has the appropriate role
   modifier onlyConsumer() {
-    require (isConsumer(msg.sender), "Only for consumers role.");
+    require(isConsumer(msg.sender));
     _;
   }
 

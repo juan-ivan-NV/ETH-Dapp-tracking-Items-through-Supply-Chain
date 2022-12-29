@@ -1,6 +1,6 @@
 const HDWallet = require('truffle-hdwallet-provider');
-const infuraKey = "******************";
-const mnemonic = "xxxxxxx metamask mnemonic xxxxxxxxxxxxx";
+const infuraKey = "test network infura key";
+const mnemonic = "metamask mnemonic";
 
 module.exports = {
   networks: {
@@ -16,6 +16,12 @@ module.exports = {
       gasPrice: 10000000000
     },
   },
+
+  // Set default mocha options here, use special reporters etc.
+  mocha: {
+    // timeout: 100000
+  },
+
   compilers: {
     solc: {
       version: "^0.4.24",    // Fetch exact version from solc-bin (default: truffle's version)

@@ -6,9 +6,9 @@ var ConsumerRole = artifacts.require("./ConsumerRole.sol");
 var SupplyChain = artifacts.require("./SupplyChain.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(FarmerRole);
-  deployer.deploy(DistributorRole);
-  deployer.deploy(RetailerRole);
-  deployer.deploy(ConsumerRole);
-  deployer.deploy(SupplyChain);
+  deployer.deploy(FarmerRole, { gas: 5000000 });
+  deployer.deploy(DistributorRole, { gas: 5000000 });
+  deployer.deploy(RetailerRole, { gas: 5000000 });
+  deployer.deploy(ConsumerRole, { gas: 5000000 });
+  deployer.deploy(SupplyChain, { gas: 5000000 });
 };

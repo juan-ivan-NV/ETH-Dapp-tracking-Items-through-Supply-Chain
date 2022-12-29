@@ -1,8 +1,9 @@
-pragma solidity >=0.4.24;
+pragma solidity ^0.4.24;
 
 /// Provides basic authorization control
 contract Ownable {
     address private origOwner;
+
     // Define an Event
     event TransferOwnership(address indexed oldOwner, address indexed newOwner);
 
@@ -19,7 +20,7 @@ contract Ownable {
 
     /// Define a function modifier 'onlyOwner'
     modifier onlyOwner() {
-        require(isOwner(), "role different to owner");
+        require(isOwner());
         _;
     }
 

@@ -128,6 +128,7 @@ App = {
 
         var processId = parseInt($(event.target).data('id'));
         console.log('processId',processId);
+        App.readForm();
 
         switch(processId) {
             case 1:
@@ -167,6 +168,10 @@ App = {
         event.preventDefault();
         var processId = parseInt($(event.target).data('id'));
 
+        console.log(App.upc)
+        console.log(App.metamaskAccountID)
+        console.log(App.originFarmName)
+        console.log(App.productNotes)
         App.contracts.SupplyChain.deployed().then(function(instance) {
             return instance.harvestItem(
                 App.upc, 

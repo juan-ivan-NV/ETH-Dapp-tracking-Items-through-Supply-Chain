@@ -1,16 +1,24 @@
 {
-  "name": "supply-chain-E",
+  "name": "fair-trade-coffee-dapp",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
     "dev": "lite-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "pk <pkrasam@gmail.com> (https://ipfs.infura.io/ipfs/QmSXiR9Khm3yo1J67nUopvVBxFJ8YGN2fUGZ34Etr3m92x/)",
-  "license": "MIT",
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "lite-server": "2.4.0"
+    "bignumber.js": "^9.0.0",
+    "lite-server": "^2.5.4",
+    "truffle-assertions": "^0.9.2"
+  },
+  "dependencies": {
+    "bn.js": "^5.1.1",
+    "truffle-hdwallet-provider": "^1.0.17"
   }
 }

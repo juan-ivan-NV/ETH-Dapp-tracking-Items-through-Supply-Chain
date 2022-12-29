@@ -1,4 +1,3 @@
-
 pragma solidity ^0.4.24;
 
 import "../coffeeaccesscontrol/FarmerRole.sol";
@@ -169,10 +168,8 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole 
     string  _originFarmLatitude,
     string  _originFarmLongitude,
     string  _productNotes
-    ) 
-    public
+    ) public
     onlyFarmer()
-
   {
     // Add the new item as part of Harvest
     items[_upc] = Item(
@@ -252,7 +249,6 @@ contract SupplyChain is FarmerRole, DistributorRole, RetailerRole, ConsumerRole 
     paidEnough(items[_upc].productPrice)
     // Call modifer to send any excess ether back to buyer
     checkValue(_upc)
-    
     {
     // Update the appropriate fields - ownerID, distributorID, itemState
     items[_upc].ownerID = msg.sender;
