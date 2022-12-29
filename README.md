@@ -106,219 +106,72 @@ These contracts were already compiled so you may see another message like "Compi
 .<br />
 <img src='images/Migrate2.png'/><br />
 
-<blockquote>
-
-Deploying 'Migrations'
-   ----------------------
-   > block number:        8208015 <br />
-   > block timestamp:     1672120145 <br />
-   > account:             0xb9c1A59a493818B869e1e75f4F484349b313C212 <br />
-   > balance:             0.379944499236479893 <br />
-   > gas used:            157059 <br />
-   > gas price:           11 gwei <br />
-   > value sent:          0 ETH <br />
-   > total cost:          0.001727649 ETH <br />
-
-   -------------------------------------
-   > Total cost:         0.001727649 ETH
-
-</blockquote>
 
 <blockquote>
-
-2_deploy_contracts.js
-=====================
-
-   Deploying 'SupplyChain'
-   -----------------------
-   > block number:        8208017 <br />
-   > block timestamp:     1672120160 <br />
-   > account:             0xb9c1A59a493818B869e1e75f4F484349b313C212 <br />
-   > balance:             0.348077070236479893 <br />
-   > gas used:            2869713 <br />
-   > gas price:           11 gwei <br />
-   > value sent:          0 ETH <br />
-   > total cost:          0.031566843 ETH <br />
-
-   -------------------------------------
-   > Total cost:         0.031566843 ETH
-
-</blockquote>
-
-<blockquote>
-
-Summary
-=======
-> Total deployments:   2<br />
-> Final cost:          0.033294492 ETH
-
-</blockquote>
-
-
-### Run the project on test network local
-
-
-
-<code>compile</code>
-
-<code>migrate --reset</code>
+4.- Test smart contracts. 
+</blockquote> <br />
 
 <code>test</code>
 
-### Run the project on a test network like goerly
+<img src='images/Test.png'/><br />
+
+<blockquote>
+5.- Run the Dapp UI. 
+</blockquote> <br />
+
+<code>npm run dev</code>
+
+<img src='images/UI3000.png'/><br />
+
+
+### Deploying smart contract on a public test network.
+
+In this case we are using goerly.<br />
+
+First make sure you set the test network data ...
+
+<blockquote>
+truffle-config.js
+</blockquote> <br />
+
+To edith the file on the container
+
+<code>nano node_modules/browser-sync/dist/default-config.js</code>
+
+<blockquote>
+const HDWallet = require('truffle-hdwallet-provider'); <br />
+const infuraKey = "test network infura key"; <br />
+const mnemonic = "metamask mnemonic";
+</blockquote> <br />
 
 truffle migrate --network goerli --reset 
 
+<code>truffle migrate --reset --network goerli</code><br />
+or <br />
 <code>truffle migrate --reset --network goerli</code>
 
-Warning to deploy on the test network the cost arround "0.12 ETH"
+<img src='images/Goerly1.png'/><br />
+.<br />
+.<br />
+.<br />
+<img src='images/Goerly2.png'/><br />
+
+#### Contract addresses deployed.
+
+<table>
+<thead>
+<tr><th>Contract Name</th><th>Contract Address</th></tr>
+</thead>
+<tbody>
+<tr><th>FarmerRole</th><th>0x434C7225C5532bbc942639EB54d001C6fe94b74C</th></tr>
+<tr><th>DistributorRole</th><th>0x588914C6546D2e12158Aeb97D66cBFC067e0965A</th></tr>
+<tr><th>RetailerRole</th><th>0x1bde85263925B838172e08DaC52849502FF860A6</th></tr>
+<tr><th>ConsumerRole</th><th>0x073504f1De2A1D09470e9C6d9F7B89d861d78FC7</th></tr>
+<tr><th>SupplyChain</th><th>0xAbd89027E4fc01Dd047c44E27c1C4908aC6fFCa7</th></tr>
+</tbody>
+</table>
+
 
 ### you can change the different port settings on browser-sync
 
 <code>nano node_modules/browser-sync/dist/default-config.js</code>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<a href = "https://github.com/udacity/nd1309-Project-6b-Example-Template">Starter code</a>
-
-* To use the starter code, please run <code>npm i -g truffle@4.1.14</code> to install Truffle v4 with Solidity v0.4.24.
-
-* To check the Solidity compiler version on your local installation, you can run this command: <code>truffle version</code>.
-
-#### Smart contracts.
-
-* AccessControl - Collection of Contracts: These contracts manages the various addresses and constraints for operations that can be executed only by specific roles.
-
-* Base - SupplyChain.sol: This is where we define the most fundamental code shared throughout the core functionality. This includes our main data storage, constants, and data types, plus internal functions for managing these items.
-
-* Core - Ownable.sol: is the contract that controls ownership and transfer of ownership.
-
-
-### Requirement 2: Build out AccessControl Contracts.
-
-From the Starter Code, the files in <code>coffeeaccesscontrol</code> controls access control for each actor.
-
-Build out these contracts so that each actor’s role in your supply chain is distinct with no overlap in their access abilities. The abilities listed for each role are exhaustive.
-
-Example of 4 actors in a coffee supply chain are: Farmer, Distributor, Retailer, Consumer.
-
-### Requirement 3: Build out Base Contract.
-
-From the Starter Code, <strong>SupplyChain.sol</strong> contract holds all common structs, events and base variables.
-
-This smart contract must implement functions that track:
-
-* Product ID
-* Product UPC
-* Origination Information
-* Origin Actor (e.g. Farmer ID, Farmer Name, )
-* Misc. organization information (e.g. Farmer Information)
-* Longitude and Latitude of Origin Coordinates (e.g. Farm’s Longitude and Latitude)
-* Product notes
-* Product price
-
-### Requirement 4: Build out Core Contract
-
-<strong>Ownable.sol</strong> is the contract that controls ownership and transfer of ownership.
-
-This Core Contract must implement:
-
-* Ownable - Define an owner for all the contracts.
-* Secondary - Allows contract to be transferred owners.
-
-## Part 3: Test smart contract code coverage.
-
-### Requirement: Smart contract has associated tests.
-
-Requirement: Smart contract has associated tests.
-
-At minimum, test every function for every function you implemented from your Sequence Diagram. For example, from this Sequence Diagram we would need to test 10 functions:
-
-* harvestItem()
-* processItem()
-* packItem()
-* addItem()
-* buyItem()
-* shiptItem()
-* receiveItem()
-* purchaseItem()
-* fetchItemBufferOne()
-* fetchItemBufferTwo()
-
-<img src='images/screen-shot-2018-11-26-at-5.16.19-pm.png'/>
-
-## Part 4: Deploy smart contracts on public test network.
-
-Deploy your smart contract on the Ethereum RINKEBY test network.
-
-<table>
-<tr> <td>Requirement 1</td> <td>Deploy smart contract on a public test network</td> </tr>
-<tr> <td>Requirement 2</td> <td>Submit Transaction hash, contract hash, and contract address</td> </tr>
-</table>
-
-
-### Requirement 1: Deploy smart contract on a public test network.
-
-Deploy your smart contract with the Rinkeby test network.
-
-<p>Tip: Refer to Infura screencast for assistance on deploying your smart contract with Infura and Truffle.</p>
-
-### Requirement 2: Submit Contract Address.
-
-Provide a document with your project submission that includes the contract address.
-
-Document for your project must be in either ".txt" or ".md" format.
-
-<p>Hint: You can view the Contract address using a blockchain explorer (e.g. Etherscan).</p>
-
-
-## Part 5: Modify client code to interact with smart contract.
-
-Create the frontend that allows your users to interact with your DApp. This should be a simple and clean frontend that manages product lifecycle as the product navigates down the supply chain.
-
-Using javascript, create a single JS file with all web3 functions that allows your client code to interact with you smart contracts.
-
-The coffee example in the boilerplate provides this code for you.
-
-### Requirement: Configure client code for each actor.
-
-Front-end is configured to:
-
-1) Submit a product for shipment (farmer to the distributor, distributor to retailer, etc).
-2) Receive product from shipment.
-3) Validate the authenticity of the product.
-Frontend code can be downloaded and executed from a local environment.
-
-## Optional: Implement Infura to store product image.
-
-Using your previous coursework experience, modify your DApp to allow the initial producer in the supply chain to upload an image of the product along with the UPC hash and store this image using Infura.
-
-Consider including 2 methods - upload() and read()
-
-
-
