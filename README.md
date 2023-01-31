@@ -174,3 +174,6 @@ or <br />
 ### you can change the different port settings on browser-sync
 
 <code>nano node_modules/browser-sync/dist/default-config.js</code>
+
+
+This is my repo juan ivan nunez baeza = juan-ivan-NV
