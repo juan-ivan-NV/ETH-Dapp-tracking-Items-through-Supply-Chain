@@ -41,7 +41,7 @@ Actions performed by role
 All of the libraries for this Dapp are specified in the Dockerfile.
 
 <table>
-<thead><tr> <th>Library</th> <th>Version</th> </tr> </thead>
+<thead><tr> <th>Library</th> <th>Description</th> </tr> </thead>
 <tbody>
 <tr> <td>Node v10.24.1</td> <td>Cross-platform runtime environment for executing JavaScript code.</td> </tr> 
 <tr> <td>Truffle v5.1.13 </td> <td>This framework allows us to generate a development / testing environment and create a pipeline for Ethereum with its different functionalities.</td> </tr>
