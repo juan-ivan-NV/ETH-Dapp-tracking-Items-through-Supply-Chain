@@ -41,14 +41,15 @@ Actions performed by role
 All of the libraries for this Dapp are specified in the Dockerfile.
 
 <table>
+<thead><tr> <th>Library</th> <th>Version</th> </tr> </thead>
 <tbody>
-<tr> <td>Node version</td> <td>v10.24.1</td> </tr> 
-<tr> <td>Truffle version</td> <td>v5.1.13</td> </tr>
-<tr> <td>Web3</td> <td>1.8.1</td> </tr>
+<tr> <td>Node v10.24.1</td> <td>Cross-platform runtime environment for executing JavaScript code.</td> </tr> 
+<tr> <td>Truffle v5.1.13 </td> <td>This framework allows us to generate a development / testing environment and create a pipeline for Ethereum with its different functionalities.</td> </tr>
+<tr> <td>Web3 v1.8.1</td> <td>This collection of libraries allows us to interact with remote and local ETH nodes as well as other test nodes (goerly in this case). For this project, it is allowing the interaction bwtween Metamask and Infura endpoint.</td> </tr>
+<tr> <td>OpenZeppelin v2.3</td> <td>OpenZeppelin Contracts helps you minimize risk by using battle-tested libraries of smart contracts for Ethereum and other blockchains. It includes the most used implementations of ERC standards.</td> </tr>
+<tr> <td>Truffle hdwallet provider v1.0.17</td> <td>It allow us to sign transactions for addresses derived from a 12 or 24 word mnemonic.</td> </tr>
 </tbody>
 </table>
-
-
 
 
 # How to deploy this project using Docker?
